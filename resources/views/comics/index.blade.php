@@ -3,6 +3,15 @@
 @section('content')
     <div class="container">
         <div class="row">
+
+
+            @if (session('deleted'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('deleted') }}
+                </div>
+            @endif
+
+
             <table class="table text-white"">
                 <thead>
                     <tr>
@@ -25,8 +34,14 @@
                                         class="fa-regular fa-eye"></i></a>
                                 <a class="btn btn-warning mx-1" href="{{ route('comics.edit', $comic) }}" title="edit"><i
                                         class="fa-solid fa-pencil"></i></a>
-                                <a class="btn btn-danger mx-1" href="#" title="delete"><i
-                                        class="fa-solid fa-trash"></i></a>
+                                <form onsubmit="return confirm('Confermi l\'eliminazione di: {{ $comic->title }}')"
+                                    action="{{ route('comics.destroy', $comic) }}" method="POST" class="mx-1 d-inline">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="submit" class="btn btn-danger" href="#" title="delete"><i
+                                            class="fa-solid fa-trash"></i></button>
+                                </form>
                             </td>
                         </tr>
                     @empty
