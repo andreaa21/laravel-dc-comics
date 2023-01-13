@@ -10,6 +10,8 @@ class Comic extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['title', 'slug', 'image', 'price', 'series', 'sale_date', 'type', 'description'];
+
 
     public static function generateSlug($string)
     {
